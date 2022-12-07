@@ -1,0 +1,2 @@
+Norint paleisti programa pradzioj ivedamas input failas po to output failas.
+Neivedus input failo programa praso isvesti per terminala

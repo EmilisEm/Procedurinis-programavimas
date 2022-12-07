@@ -1,0 +1,1 @@
+Užduoties kodą reikia sukompiliuoti kartu su validation.c

@@ -1,0 +1,11 @@
+Input ir validacija:
+    20min
+Logika ir skaiciavimai:
+    45min
+Output:
+    15min
+Testing:
+    15min
+PSP:
+    45min
+    

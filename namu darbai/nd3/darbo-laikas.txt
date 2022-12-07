@@ -1,0 +1,15 @@
+Input ir validacija:
+    12:42 - 13:24
+Logika ir skaiciavimai:
+    13:25 - 13:34 // Break
+    13:48 - 14:18 // Debil brolis
+    14:26 - 14:37 // Debil brolis
+    14:43 - 15:00
+    15:32 - 20:40 Finisas
+Output:
+    
+Testing:
+    
+PSP:
+    20:57 -
+    

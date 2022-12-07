@@ -1,0 +1,10 @@
+posible
+ handleBuffer ofsetas per didelis arba per mazas
+
+Endless loop
+ 17:29 - 18:42
+    strtok error
+
+leftover
+    19:08 - 19:16
+    buffer error

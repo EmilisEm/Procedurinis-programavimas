@@ -1,0 +1,57 @@
+18:36
+1. Nuskaityti diena
+2. Rasti dienu vienam menesiui skaiciu be likucio. Issaugoti likuti
+3. Ivesti dienas ir issaugoti likuti jei netilpo i menesi
+4. Paskirstyti likuti ir kur netilpo
+5. Isspausdinti menesius, ketvirtis, tecdalius, pusmecius
+18:42
+
+18:43
+
+find nearest empty 
+
+31 28 31 
+30 31 30 
+31 31 30 
+31 30 31 
+
+31 28 31 
+30 31 30 
+31 30 30 
+31 30 31 
+
+
+find nearest open month ~~~
+
+Find nearest index to drop
+
+
+Bugs
+
+Syntacse eror when printing
+mulitply by to when wished to add original
+
+kaka
+
+Paskirstyti kad pusmeciai butu kuo vienodesni
+
+paskirstyti kad ketvirtadaliai butu kuo vienodesni
+
+Paskirstyti kad 
+
+14:30
+
+ 1  2  3
+ 4  5  6
+ 7  8  9
+10 11 12
+
+ 1  2  3  4
+ 5  6  7  8
+ 9 10 11 12
+
+
+bugs
+no change in array. 
+fix: instead of = was ==
+

@@ -1,0 +1,7 @@
+
+writen 1 6
+emilis 1 8
+kleinas 1 9
+writen 1 6
+emilis 1 8
+kleinas 1 9
