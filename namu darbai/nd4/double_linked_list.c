@@ -57,38 +57,38 @@ void deleteDLList(Node *DLList)
 }
 
 // Takes start node. Returns the length of list
-size_t getDLListLen(Node *Dll)
+size_t getDLListLen(Node *tail)
 {
     size_t length = 0;
 
-    while (Dll != NULL)
+    while (tail != NULL)
     {
         ++length;
-        Dll = Dll->next;
+        tail = tail->next;
     }
 
     return length;
 }
 
 // Reuturns uncast pointer to value at index or NULL on fail
-void *getValueByIndex(Node *Dll, size_t index)
+void *getValueByIndex(Node *tail, size_t index)
 {
     int i;
     for (i = 0; i < index; ++i)
     {
-        if (Dll == NULL)
+        if (tail == NULL)
         {
             return NULL;
         }
-        Dll = Dll->next;
+        tail = tail->next;
     }
 
-    if (Dll == NULL)
+    if (tail == NULL)
     {
         return NULL;
     }
 
-    return Dll->value;
+    return tail->value;
 }
 
 int addToTail(Node **tail, void *value, size_t valueSize)
@@ -140,10 +140,10 @@ int addToHead(Node **head, void *value, size_t valueSize)
 }
 
 // Returns 0 on successful insertion. -1 if fails
-int insertValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize)
+int insertValueAtIndex(Node **tail, Node **head, size_t index, void *newValue, size_t valueSize)
 {
     int i;
-    Node *ref = *Dll;
+    Node *ref = *tail;
     if (ref == NULL)
     {
         return -1;
@@ -163,12 +163,12 @@ int insertValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSiz
 
     if (index == 0)
     {
-        addToTail(Dll, newValue, valueSize);
+        addToTail(tail, newValue, valueSize);
         return 0;
     }
     else if (i == (index - 1))
     {
-        addToHead(Dll, newValue, valueSize);
+        addToHead(head, newValue, valueSize);
         return 0;
     }
 
@@ -306,6 +306,7 @@ int deleteNodeByRef(Node **head, Node **tail, Node *node)
 
     free(node->value);
     free(node);
+
     return 0;
 }
 

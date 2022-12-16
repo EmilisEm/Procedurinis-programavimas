@@ -68,7 +68,7 @@ int main()
         printf("\n\n");
     }
 
-    if (insertValueAtIndex(&tail, 1, s4, sizeof(Student)))
+    if (insertValueAtIndex(&tail, &head, 1, s4, sizeof(Student)))
     {
         printf("failed to add to s4 as index 1");
     }

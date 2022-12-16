@@ -32,7 +32,7 @@ int addToTail(Node **tail, void *value, size_t valueSize);
 int addToHead(Node **head, void *value, size_t valueSize);
 
 // Inser value at index. Returns 0 on successful insertion. -1 if fails
-int insertValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize);
+int insertValueAtIndex(Node **tail, Node **head, size_t index, void *newValue, size_t valueSize);
 
 // Set value at node by reference to node
 int setValueByNode(Node *node, void *newValue, size_t valueSize);
