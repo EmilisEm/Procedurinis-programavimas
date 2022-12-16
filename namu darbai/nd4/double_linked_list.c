@@ -59,6 +59,8 @@ void deleteDLList(Node *DLList)
 
     free(DLList->value);
     free(DLList);
+
+    DLList = NULL;
 }
 
 // Takes start node. Returns the length of list
@@ -88,35 +90,20 @@ void *getValueByIndex(Node *Dll, size_t index)
         Dll = Dll->next;
     }
 
+    if (Dll == NULL)
+    {
+        return NULL;
+    }
+
     return Dll->value;
-}
-
-// Sets value of double linked list at index. Reutrns -1 on fail
-int setValueAtIndex(Node *Dll, size_t index, void *newValue, size_t valueSize)
-{
-    int i;
-    for (i = 0; i < index; ++i)
-    {
-        if (Dll == NULL)
-        {
-            return -1;
-        }
-        Dll = Dll->next;
-    }
-
-    Dll->value = realloc(Dll->value, valueSize);
-
-    if (Dll->value == NULL)
-    {
-        return -1;
-    }
-
-    coppyBytes(Dll->value, newValue, valueSize);
-    return 0;
 }
 
 int addToTail(Node **tail, void *value, size_t valueSize)
 {
+    if (*tail == NULL)
+    {
+        return -1;
+    }
     void *nodeValue = malloc(valueSize);
     coppyBytes(nodeValue, value, valueSize);
 
@@ -129,18 +116,18 @@ int addToTail(Node **tail, void *value, size_t valueSize)
     newNode->next = *tail;
     newNode->prev = NULL;
     newNode->value = nodeValue;
-
-    if (*tail != NULL)
-    {
-        (*tail)->prev = newNode;
-    }
-
+    (*tail)->prev = newNode;
     *tail = newNode;
+
     return 0;
 }
 
 int addToHead(Node **head, void *value, size_t valueSize)
 {
+    if (*head == NULL)
+    {
+        return -1;
+    }
     void *nodeValue = malloc(valueSize);
     coppyBytes(nodeValue, value, valueSize);
 
@@ -153,18 +140,14 @@ int addToHead(Node **head, void *value, size_t valueSize)
     newNode->prev = *head;
     newNode->next = NULL;
     newNode->value = nodeValue;
-
-    if (*head != NULL)
-    {
-        (*head)->next = newNode;
-    }
-
+    (*head)->next = newNode;
     *head = newNode;
+
     return 0;
 }
 
 // Returns 0 on successful insertion. -1 if fails
-int insertDLLValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize)
+int insertValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize)
 {
     int i;
     Node *ref = *Dll;
@@ -219,6 +202,10 @@ int insertDLLValueAtIndex(Node **Dll, size_t index, void *newValue, size_t value
 
 int setValueByNode(Node *node, void *newValue, size_t valueSize)
 {
+    if (node == NULL)
+    {
+        return -1;
+    }
     node->value = realloc(node->value, valueSize);
     if (node->value == NULL)
     {
@@ -238,7 +225,10 @@ int setListValueByIndex(Node *head, void *newValue, size_t valueSize, size_t ind
         }
         head = head->next;
     }
-
+    if (head == NULL)
+    {
+        return -1;
+    }
     head->value = realloc(head->value, valueSize);
     if (head->value != NULL)
     {
@@ -279,16 +269,18 @@ int deleteNodeByIndex(Node **tail, Node **head, int index)
     }
     else if (node->next == NULL)
     {
+        *head = node->prev;
         node->prev->next = NULL;
     }
     else if (node->prev == NULL)
     {
+        *tail = node->next;
         node->next->prev = NULL;
     }
 
     free(node->value);
     free(node);
-    return 1;
+    return 0;
 }
 
 void printLinkedListFromTail(Node *tail, void (*printFunction)(void *value))
@@ -327,14 +319,20 @@ int main(int argc, char const *argv[])
     ++value;
     printf("%d add 3 to head\n", addToHead(&head, &value, sizeof(value)));
     ++value;
-    printf("%d insert 4 at index 2\n", insertDLLValueAtIndex(&tail, 2, &value, sizeof(value)));
+    printf("%d insert 4 at index 2\n", insertValueAtIndex(&tail, 2, &value, sizeof(value)));
 
     printf("%d set value at index 0 to value 4\n", setListValueByIndex(tail, &value, sizeof(value), 0));
 
     printf("%d delete value at index 1\n", deleteNodeByIndex(&tail, &head, 1));
+    value = 99;
+    printf("%d set tail value to 99\n", setValueByNode(tail, &value, sizeof(value)));
     printLinkedListFromTail(tail, printInt);
+
+    printf("\n%d is value at index 2\n", *((int *)getValueByIndex(tail, 3)));
     int *valuePtr = (int *)tail->value;
     printf("value at tail: %d; List length: %d\n", *valuePtr, getDLListLen(tail));
+
+    deleteDLList(tail);
 
     return 0;
 }
