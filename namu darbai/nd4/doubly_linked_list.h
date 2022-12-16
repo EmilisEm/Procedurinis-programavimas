@@ -2,12 +2,18 @@
 
 #define __DOUBLY_LINKED_LIST
 
-typedef struct Node;
+typedef struct Node
+{
+    void *value;
+    size_t valueSize;
+    struct Node *prev;
+    struct Node *next;
+} Node;
 
 // coppies size number of bytes from one location to another
 void coppyBytes(void *destination, void *source, size_t size);
 
-// Creates double linked list. If fails returns NULL pointer
+// Creates double linked list. If fails returns -1
 int initDLList(Node **head, Node **tail, void *value, size_t valueSize);
 
 // Takes tail of list. Deletes all elements that follow
@@ -26,18 +32,24 @@ int addToTail(Node **tail, void *value, size_t valueSize);
 int addToHead(Node **head, void *value, size_t valueSize);
 
 // Inser value at index. Returns 0 on successful insertion. -1 if fails
-int insertDLLValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize);
+int insertValueAtIndex(Node **Dll, size_t index, void *newValue, size_t valueSize);
 
 // Set value at node by reference to node
 int setValueByNode(Node *node, void *newValue, size_t valueSize);
 
 // Set value at doubly linked list by index from tail;
-int setListValueByIndex(Node *head, void *newValue, size_t valueSize, size_t index);
+int setValueByIndex(Node *head, void *newValue, size_t valueSize, size_t index);
 
 // Deletes value at index. May move tail and head
 int deleteNodeByIndex(Node **tail, Node **head, int index);
 
+// Delete node in doubly linked list by node reference
+int deleteNodeByRef(Node **head, Node **tail, Node *node);
+
 // Prints the linked list from tail to head
 void printLinkedListFromTail(Node *tail, void (*printFunction)(void *value));
 
-#endif // !1
+// Function for printLinkedListFromTail(). Prints ints
+void printInt(void *value);
+
+#endif

@@ -1,13 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef struct Node
-{
-    void *value;
-    size_t valueSize;
-    struct Node *prev;
-    struct Node *next;
-} Node;
+#include "doubly_linked_list.h"
 
 //          TO DO
 //  1. Refactor so last node search for setValueByIndex(), insertValueAtIndex() is in function
@@ -215,24 +208,24 @@ int setValueByNode(Node *node, void *newValue, size_t valueSize)
     return 0;
 }
 
-int setListValueByIndex(Node *head, void *newValue, size_t valueSize, size_t index)
+int setValueByIndex(Node *tail, void *newValue, size_t valueSize, size_t index)
 {
     for (; index > 0; --index)
     {
-        if (head == NULL)
+        if (tail == NULL)
         {
             return -1;
         }
-        head = head->next;
+        tail = tail->next;
     }
-    if (head == NULL)
+    if (tail == NULL)
     {
         return -1;
     }
-    head->value = realloc(head->value, valueSize);
-    if (head->value != NULL)
+    tail->value = realloc(tail->value, valueSize);
+    if (tail->value != NULL)
     {
-        coppyBytes(head->value, newValue, valueSize);
+        coppyBytes(tail->value, newValue, valueSize);
         return 0;
     }
     return -1;
@@ -283,6 +276,39 @@ int deleteNodeByIndex(Node **tail, Node **head, int index)
     return 0;
 }
 
+int deleteNodeByRef(Node **head, Node **tail, Node *node)
+{
+    if (node == NULL)
+    {
+        return -1;
+    }
+
+    if (node->prev != NULL && node->next != NULL)
+    {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+    else if (node->prev == NULL && node->next == NULL)
+    {
+        *tail = NULL;
+        *head = NULL;
+    }
+    else if (node->next == NULL)
+    {
+        *head = node->prev;
+        node->prev->next = NULL;
+    }
+    else if (node->prev == NULL)
+    {
+        *tail = node->next;
+        node->next->prev = NULL;
+    }
+
+    free(node->value);
+    free(node);
+    return 0;
+}
+
 void printLinkedListFromTail(Node *tail, void (*printFunction)(void *value))
 {
     while (tail != NULL)
@@ -296,43 +322,4 @@ void printInt(void *value)
 {
     int num = *((int *)value);
     printf("%d ", num);
-}
-
-int main(int argc, char const *argv[])
-{
-    int value = 0;
-
-    Node *head, *tail;
-
-    if (initDLList(&head, &tail, &value, sizeof(value)))
-    {
-        printf("Failed to initialize list\n");
-    }
-    else
-    {
-        printf("Successfuly initialised list\n");
-    }
-    ++value;
-    printf("%d add 1 to tail\n", addToTail(&tail, &value, sizeof(value)));
-    ++value;
-    printf("%d add 2 to tail\n", addToTail(&tail, &value, sizeof(value)));
-    ++value;
-    printf("%d add 3 to head\n", addToHead(&head, &value, sizeof(value)));
-    ++value;
-    printf("%d insert 4 at index 2\n", insertValueAtIndex(&tail, 2, &value, sizeof(value)));
-
-    printf("%d set value at index 0 to value 4\n", setListValueByIndex(tail, &value, sizeof(value), 0));
-
-    printf("%d delete value at index 1\n", deleteNodeByIndex(&tail, &head, 1));
-    value = 99;
-    printf("%d set tail value to 99\n", setValueByNode(tail, &value, sizeof(value)));
-    printLinkedListFromTail(tail, printInt);
-
-    printf("\n%d is value at index 2\n", *((int *)getValueByIndex(tail, 3)));
-    int *valuePtr = (int *)tail->value;
-    printf("value at tail: %d; List length: %d\n", *valuePtr, getDLListLen(tail));
-
-    deleteDLList(tail);
-
-    return 0;
 }
