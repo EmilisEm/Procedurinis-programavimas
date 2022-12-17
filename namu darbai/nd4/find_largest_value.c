@@ -48,6 +48,7 @@ void printStudent(void *value)
     printf("%d ", student->id);
 }
 
+// Refactor into reuseable functions
 void generateUi(Node **tail, Node **head)
 {
     int num, inputIndex, inputValue;
@@ -136,27 +137,9 @@ int main()
     Node *head, *tail;
     Student *value = (Student *)malloc(sizeof(Student));
     value->id = 11535;
+
     initDLList(&head, &tail, value, sizeof(Student));
-    // ++value;
-    // addToHead(&head, &value, sizeof(int));
-    // ++value;
-    // addToHead(&head, &value, sizeof(int));
-    // ++value;
-    // addToHead(&head, &value, sizeof(int));
-    // ++value;
-    // addToHead(&head, &value, sizeof(int));
-    // ++value;
-    // addToHead(&head, &value, sizeof(int));
-    // value = 123;
-    // setValueByIndex(tail, &value, sizeof(int), 2);
-    // setValueByIndex(tail, &value, sizeof(int), 3);
-
-    // printLinkedListFromTail(tail, printInt);
-    // printf("\n");
-    // removeLargest(&head, &tail, compare);
-    // printLinkedListFromTail(tail, printInt);
-
     generateUi(&tail, &head);
-
+    deleteDLList(tail);
     return 0;
 }

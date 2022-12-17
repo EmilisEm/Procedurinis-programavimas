@@ -40,6 +40,7 @@ int initDLList(Node **head, Node **tail, void *value, size_t valueSize)
 }
 
 // Takes tail of list. Deletes all elements that follow
+// Refactor so not recursion
 void deleteDLList(Node *DLList)
 {
     Node *next;
