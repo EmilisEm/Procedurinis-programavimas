@@ -53,7 +53,6 @@ void generateUi(Node **tail, Node **head)
 {
     int num, inputIndex, inputValue;
     Student *student = (Student *)malloc(sizeof(Student));
-    system("cls");
     while (1)
     {
         printf("List of student IDs: ");
@@ -120,7 +119,6 @@ void generateUi(Node **tail, Node **head)
             return;
             break;
         }
-        system("cls");
         if (num == 6)
         {
             printf("Student ID at index %d: %d\n", inputIndex, student->id);
@@ -140,6 +138,6 @@ int main()
 
     initDLList(&head, &tail, value, sizeof(Student));
     generateUi(&tail, &head);
-    deleteDLList(tail);
+    deleteDLList(&tail, &head);
     return 0;
 }

@@ -22,19 +22,31 @@ int removeLargest(Node **head, Node **tail, int (*compare)(void *, void *))
         }
     }
     ref = *tail;
+    int lastInteration;
+
     while (ref != NULL)
     {
         // Works on gcc but looks sketchy. In itterations after removal of last larges value is comparing to random memory
         // Could be fixed by creating a copy of largest element and using copy in compare
         if (compare(toRemove->value, ref->value) == 0)
         {
+            if (toRemove == ref)
+            {
+                lastInteration = 1;
+            }
             tempRef = ref;
             ref = ref->next;
             deleteNodeByRef(head, tail, tempRef);
+            if (lastInteration)
+            {
+                break;
+            }
         }
         else
         {
             ref = ref->next;
         }
     }
+
+    return 0;
 }

@@ -11,7 +11,7 @@ void coppyBytes(void *destination, void *source, size_t size)
     int i;
     for (i = 0; i < size; ++i)
     {
-        *(((char *)destination) + i) = *(((char *)source) + i);
+        *((char *)destination + i) = *((char *)source + i);
     }
 }
 
@@ -41,20 +41,21 @@ int initDLList(Node **head, Node **tail, void *value, size_t valueSize)
 
 // Takes tail of list. Deletes all elements that follow
 // Refactor so not recursion
-void deleteDLList(Node *DLList)
+void deleteDLList(Node **tail, Node **head)
 {
-    Node *next;
-    next = DLList->next;
+    Node *next, *curr;
 
-    if (next != NULL)
+    curr = *tail;
+    while (curr != NULL)
     {
-        deleteDLList(next);
+        next = curr->next;
+        free(curr->value);
+        free(curr);
+        curr = next;
     }
 
-    free(DLList->value);
-    free(DLList);
-
-    DLList = NULL;
+    *tail = NULL;
+    *head = NULL;
 }
 
 // Takes start node. Returns the length of list
@@ -182,15 +183,12 @@ int insertValueAtIndex(Node **tail, Node **head, size_t index, void *newValue, s
         return -1;
     }
 
-    if (ref != NULL && ref->prev != NULL)
-    {
-        newNode->prev = ref->prev;
-        ref->prev->next = newNode;
-        newNode->next = ref;
-        ref->prev = newNode;
-    }
-
+    newNode->prev = ref->prev;
+    ref->prev->next = newNode;
+    newNode->next = ref;
+    ref->prev = newNode;
     newNode->value = nodeValue;
+
     return 0;
 }
 

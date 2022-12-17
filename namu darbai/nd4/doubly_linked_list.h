@@ -10,14 +10,14 @@ typedef struct Node
     struct Node *next;
 } Node;
 
-// coppies size number of bytes from one location to another
+// coppies size number of bytes from source to destination
 void coppyBytes(void *destination, void *source, size_t size);
 
 // Creates double linked list. If fails returns -1
 int initDLList(Node **head, Node **tail, void *value, size_t valueSize);
 
 // Takes tail of list. Deletes all elements that follow
-void deleteDLList(Node *DLList);
+void deleteDLList(Node **tail, Node **head);
 
 // Takes start node. Returns the length of list
 size_t getDLListLen(Node *Dll);

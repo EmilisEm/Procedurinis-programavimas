@@ -142,6 +142,6 @@ int main()
     free(s2);
     free(s3);
     free(s4);
-    deleteDLList(tail);
+    deleteDLList(&tail, &head);
     return 0;
 }
