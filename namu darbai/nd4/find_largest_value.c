@@ -25,6 +25,7 @@ int getDigitFromUser(char *promptRequest, char *promptCorrect, char *promptIncor
 
     while (1)
     {
+        printf("\n\n\n");
         printf("%s", promptRequest);
         if (scanf("%d", &rValue) == 1 && getchar() == '\n')
         {
