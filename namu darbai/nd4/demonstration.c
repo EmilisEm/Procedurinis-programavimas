@@ -3,6 +3,11 @@
 #include "doubly_linked_list.h"
 #include "largest_val_func.h"
 
+// Savo pristatyme buvau minejes klaida. Ja pataisiau.
+// Klaida buvo ne duomenu strukturos kode o taikomosios programeles.
+// Programa vykdydama 6 funkcija nuskaitydavo gaunama pointer i dinamineje atmintyje saugoma student pointer taip perrasydama adresa
+// Veliau darant veiksmus su tuo perrasytu student vykdavo visokios nesamones. Pasikeisdavo jau esantys kiti list node values.
+
 typedef struct Student
 {
     int courseCount;
@@ -54,6 +59,7 @@ void generateUi(Node **tail, Node **head)
 {
     int num, inputIndex, inputValue;
     Student *student = (Student *)malloc(sizeof(Student));
+    Student *studentRef;
     while (1)
     {
         printf("List of student IDs: ");
@@ -68,7 +74,7 @@ void generateUi(Node **tail, Node **head)
         printf("5. Remove value at index of list\n");
         printf("6. Get value at index of list\n");
         printf("7. Get list length\n");
-        printf("8. Remove student with largest ID\n");
+        printf("8. Remove student with smallest ID\n");
         printf("0. End program\n\n");
 
         num = getDigitFromUser("Enter command number: ", "Command number excepted\n\n", "Incorrect input. Please repeat\n\n", 0, 8);
@@ -103,12 +109,12 @@ void generateUi(Node **tail, Node **head)
             break;
         case 6:
             inputIndex = getDigitFromUser("Enter index to get student ID from: ", "Value at index extractec\n", "Index larger than list\n", 0, getDLListLen(*tail) - 1);
-            student = (Student *)getValueByIndex(*tail, inputIndex);
+            studentRef = (Student *)getValueByIndex(*tail, inputIndex);
             break;
         case 7:
             break;
         case 8:
-            removeLargest(head, tail, compare);
+            removeSmallest(tail, head, compare);
             break;
         case 0:
             printf("Quiting program");
@@ -122,7 +128,7 @@ void generateUi(Node **tail, Node **head)
         }
         if (num == 6)
         {
-            printf("Student ID at index %d: %d\n", inputIndex, student->id);
+            printf("Student ID at index %d: %d\n", inputIndex, studentRef->id);
         }
         else if (num == 7)
         {
@@ -137,7 +143,8 @@ int main()
     Student *value = (Student *)malloc(sizeof(Student));
     value->id = 11535;
 
-    initDLList(&head, &tail, value, sizeof(Student));
+    initDLList(&tail, &head, value, sizeof(Student));
+    free(value);
     generateUi(&tail, &head);
     deleteDLList(&tail, &head);
     return 0;

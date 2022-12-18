@@ -16,9 +16,10 @@ void printStudent(void *value)
     printf("student id: %d; number of courses: %d\n", student->id, student->courseCount);
 }
 
-void initDLListTest(Node **head, Node **tail, Student *s1)
+// Test for function initDLList()
+void initDLListTest(Node **tail, Node **head, Student *s1)
 {
-    int testPass = initDLList(head, tail, s1, sizeof(Student));
+    int testPass = initDLList(tail, head, s1, sizeof(Student));
     // Checks if list initialized
     assert(!testPass);
 
@@ -27,7 +28,8 @@ void initDLListTest(Node **head, Node **tail, Student *s1)
     printf("\n\n");
 }
 
-void addToHeadTest(Node **head, Node **tail, Student *s2)
+// Test for function addToHead()
+void addToHeadTest(Node **tail, Node **head, Student *s2)
 {
     int testPass = addToHead(head, s2, sizeof(Student));
     // Checks if function failed
@@ -44,6 +46,7 @@ void addToHeadTest(Node **head, Node **tail, Student *s2)
     printf("\n\n");
 }
 
+// Test for function addToTail()
 void addToTailTest(Node **tail, Node **head, Student *s3)
 {
     int testPass = addToTail(tail, s3, sizeof(Student));
@@ -61,6 +64,7 @@ void addToTailTest(Node **tail, Node **head, Student *s3)
     printf("\n\n");
 }
 
+// Test for funtion getValueByIndex()
 void getValueByIndexTest(Node **tail, Node **head)
 {
     void *value = getValueByIndex(*tail, 100);
@@ -96,6 +100,7 @@ void getValueByIndexTest(Node **tail, Node **head)
     printf("\n\n");
 }
 
+// Test for function insertValueAtIndex()
 void insertValueAtIndexTest(Node **tail, Node **head, Student *s4)
 {
     s4->id = 77;
@@ -146,6 +151,7 @@ void insertValueAtIndexTest(Node **tail, Node **head, Student *s4)
     printf("\n\n");
 }
 
+// Test for function setValueByIndex()
 void setValueByIndexTest(Node **tail, Node **head, Student *s4)
 {
     s4->id = 999;
@@ -192,6 +198,7 @@ void setValueByIndexTest(Node **tail, Node **head, Student *s4)
     printf("\n\n");
 }
 
+// Test for function deleteNodeByIndex()
 void deleteNodeByIndexTest(Node **tail, Node **head)
 {
     Node *temp1;
@@ -247,8 +254,8 @@ int main()
     s4->id = 4;
     s4->courseCount = 1;
 
-    initDLListTest(&head, &tail, s1);
-    addToHeadTest(&head, &tail, s2);
+    initDLListTest(&tail, &head, s1);
+    addToHeadTest(&tail, &head, s2);
     addToTailTest(&tail, &head, s3);
     getValueByIndexTest(&tail, &head);
     insertValueAtIndexTest(&tail, &head, s4);

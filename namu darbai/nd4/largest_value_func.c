@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "doubly_linked_list.h"
 
-int removeLargest(Node **head, Node **tail, int (*compare)(void *, void *))
+int removeSmallest(Node **tail, Node **head, int (*compare)(void *, void *))
 {
     if (*tail == NULL)
     {
@@ -16,13 +16,13 @@ int removeLargest(Node **head, Node **tail, int (*compare)(void *, void *))
     {
         ref = ref->next;
 
-        if (compare(ref->value, toRemove->value) >= 0)
+        if (compare(ref->value, toRemove->value) <= 0)
         {
             toRemove = ref;
         }
     }
     ref = *tail;
-    int lastInteration;
+    int lastInteration = 0;
 
     while (ref != NULL)
     {
@@ -36,7 +36,7 @@ int removeLargest(Node **head, Node **tail, int (*compare)(void *, void *))
             }
             tempRef = ref;
             ref = ref->next;
-            deleteNodeByRef(head, tail, tempRef);
+            deleteNodeByRef(tail, head, tempRef);
             if (lastInteration)
             {
                 break;

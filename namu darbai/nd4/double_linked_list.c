@@ -16,7 +16,7 @@ void coppyBytes(void *destination, void *source, size_t size)
 }
 
 // Creates double linked list. If fails returns NULL pointer
-int initDLList(Node **head, Node **tail, void *value, size_t valueSize)
+int initDLList(Node **tail, Node **head, void *value, size_t valueSize)
 {
     void *valueLocation = malloc(valueSize);
 
@@ -30,7 +30,6 @@ int initDLList(Node **head, Node **tail, void *value, size_t valueSize)
     }
 
     newList->value = valueLocation;
-    newList->valueSize = valueSize;
     newList->prev = NULL;
     newList->next = NULL;
 
@@ -275,7 +274,7 @@ int deleteNodeByIndex(Node **tail, Node **head, int index)
     return 0;
 }
 
-int deleteNodeByRef(Node **head, Node **tail, Node *node)
+int deleteNodeByRef(Node **tail, Node **head, Node *node)
 {
     if (node == NULL)
     {
@@ -295,12 +294,12 @@ int deleteNodeByRef(Node **head, Node **tail, Node *node)
     else if (node->next == NULL)
     {
         *head = node->prev;
-        node->prev->next = NULL;
+        (*head)->next = NULL;
     }
     else if (node->prev == NULL)
     {
         *tail = node->next;
-        node->next->prev = NULL;
+        (*tail)->prev = NULL;
     }
 
     free(node->value);
@@ -316,10 +315,4 @@ void printLinkedListFromTail(Node *tail, void (*printFunction)(void *value))
         printFunction(tail->value);
         tail = tail->next;
     }
-}
-
-void printInt(void *value)
-{
-    int num = *((int *)value);
-    printf("%d ", num);
 }

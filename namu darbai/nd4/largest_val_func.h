@@ -2,6 +2,6 @@
 #define __largest_value_func
 
 // Removes largest value from linked list
-int removeLargest(Node **head, Node **tail, int (*compare)(void *, void *));
+int removeSmallest(Node **tail, Node **head, int (*compare)(void *, void *));
 
 #endif

@@ -5,7 +5,6 @@
 typedef struct Node
 {
     void *value;
-    size_t valueSize;
     struct Node *prev;
     struct Node *next;
 } Node;
@@ -14,7 +13,7 @@ typedef struct Node
 void coppyBytes(void *destination, void *source, size_t size);
 
 // Creates double linked list. If fails returns -1
-int initDLList(Node **head, Node **tail, void *value, size_t valueSize);
+int initDLList(Node **tail, Node **head, void *value, size_t valueSize);
 
 // Takes tail of list. Deletes all elements that follow
 void deleteDLList(Node **tail, Node **head);
@@ -44,7 +43,7 @@ int setValueByIndex(Node *head, void *newValue, size_t valueSize, size_t index);
 int deleteNodeByIndex(Node **tail, Node **head, int index);
 
 // Delete node in doubly linked list by node reference
-int deleteNodeByRef(Node **head, Node **tail, Node *node);
+int deleteNodeByRef(Node **tail, Node **head, Node *node);
 
 // Prints the linked list from tail to head
 void printLinkedListFromTail(Node *tail, void (*printFunction)(void *value));
